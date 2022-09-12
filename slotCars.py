@@ -344,10 +344,10 @@ class image():
                                         
                                         if int(self.AbsBest) < int(self.best[self.i-1]):
                                             print('donig')
-                                            with open(r"C:\Users\noah.robb\OneDrive - Department for Education\Desktop\best lap ever.txt") as f:
+                                            with open("AbsBest.txt") as f:
                                                 f.truncate(0)
                                             
-                                            file = open(r"C:\Users\noah.robb\OneDrive - Department for Education\Desktop\best lap ever.txt", 'a')
+                                            file = open("AbsBest.txt", 'a')
                                             file.write(str(self.best[self.i-1]))
 
                                         y = self.yCoordinates[self.i-1] + 30
@@ -388,7 +388,7 @@ def entryGet():
             best.append(' ')
             frameIdentities.append(frame)
     
-    with open(r'C:\Users\noah.robb\OneDrive - Department for Education\Desktop\best lap ever.txt') as f:
+    with open('AbsBest.txt') as f:
         firstline = f.readline()
 
     try:
