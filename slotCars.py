@@ -215,12 +215,12 @@ class image():
 
         #if button pressed == 0 then place the frame at the start 
         if self.n == 0:
-            self.frame.place(x=10, y=10)
+            self.frame.place(x=10, y=60)
 
         #If button pressed is anything but 0 then place using simple formula
         else:
             l = self.n * 300
-            self.frame.place(x=l, y=10)
+            self.frame.place(x=l, y=60)
         
         #place buttons and labels
         self.lastLap.place(x=0, y=60)
@@ -291,9 +291,7 @@ class image():
             self.ChoosenameIdentities.append(self.choose)
             self.oRnameIdentities.append(self.oR)     
         
-        print(p)
         x = p / 2 - 140
-        print(x)
         
         self.AbsBest = tk.CTkLabel(window, text = str(self.firstline), text_font=("Arial", 18))
         print(self.firstline)
@@ -332,23 +330,19 @@ class image():
                                 self.i+=1
                                 if self.i == int(self.string.split(' ')[1]):
                                     try: 
-                                        print(self.string)  
                                         self.lapRemainingPeople['serialTime'+str(self.i-1)] -=1
 
                                         self.BestLap = tk.CTkLabel(self.frameIdentities[self.i-1], text = str(self.string.split(' ')[7]))
                                         self.laps = tk.CTkLabel(self.frameIdentities[self.i-1], text = str(self.string.split(' ')[4]))
-                                        self.lapsRem = tk.CTkLabel(self.frameIdentities[self.i-1], text=str(self.lapRemainingPeople['serialTime' + str(self.i-1)]), text_font=("Arial", 36))
-                                        
+                                        self.lapsRem = tk.CTkLabel(self.frameIdentities[self.i-1], text=str(self.lapRemainingPeople['serialTime' + str(self.i-1)]), text_font=("Arial", 36))                        
                                         self.time[self.i-1] += int(self.string.split(' ')[4])
                                         self.best[self.i-1] = self.string.split(' ')[7].strip('\r\n')
                                         
-                                        if int(self.AbsBest) < int(self.best[self.i-1]):
-                                            print('donig')
-                                            with open("AbsBest.txt") as f:
-                                                f.truncate(0)
-                                            
-                                            file = open("AbsBest.txt", 'a')
+                                        if int(self.firstline) < int(self.best[self.i-1]):
+                                            file = open("AbsBest.txt", 'w')
                                             file.write(str(self.best[self.i-1]))
+                                            file.close()
+                                            self.AbsBest.config(text=str(self.best[self.i-1]))
 
                                         y = self.yCoordinates[self.i-1] + 30
                                         self.lapsRem.place(x=65, y=y)
