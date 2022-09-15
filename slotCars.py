@@ -19,9 +19,13 @@ serialPort = serial.Serial(port = "COM3", baudrate=115200,
 
 serialString = ""
 
+#Creates the window using custom tkinter
 window = tk.CTk()
+
+#makes the window name slot car ui
 window.title('Slot Car UI')
 
+#declares all the lists for the slot car data
 buttonIdentities = []
 nameIdentities = []
 frameIdentities = []
@@ -33,11 +37,13 @@ bestTimeIdentities = []
 yCoordinates = []
 best = []
 
-
+#makes the window geometry different
 window.geometry("500x500")
 
+#for the capturing of the images 
 cap = cv2.VideoCapture(0)
 
+#creates the class for the slot car ui and data
 class image():
     def __init__(self, Laps, Players, frameIdentities, lapRemainingPeople, time, best, firstline):
         self.firstline = firstline
@@ -102,6 +108,7 @@ class image():
 
         self.lapsRemaining.place(x=0, y=self.Ycords)
 
+        #configures the image to be placed into a label
         middle = ((270 - self.width) / 2) - 2
         label = tk.CTkLabel(self.frame)  
         label.imgtk = self.imgtk
@@ -206,12 +213,19 @@ class image():
         self.bestLap = tk.CTkLabel(self.frame, text = 'Best Lap:', width = 65)
         self.lapsRemaining = tk.CTkLabel(self.frame, text = 'Laps Remaining', width = 100)
 
-        b = self.n * 300 + 280
+        b = self.n * 300 + 300
+        
+        x = b / 2 - 75
+        
+        self.AbsBest.destroy()
+        
+        self.AbsBest = tk.CTkLabel(window, text = str(self.firstline), text_font=("Arial", 18))
+        self.AbsBest.place(x=x, y=20)
 
-        window.geometry(str(self.winWidth) + 'x550')
+        window.geometry(str(self.winWidth) + 'x600')
         
         if b >= self.winWidth:
-            window.geometry(str(b) + 'x550')
+            window.geometry(str(b) + 'x600')
 
         #if button pressed == 0 then place the frame at the start 
         if self.n == 0:
@@ -294,15 +308,14 @@ class image():
         x = p / 2 - 140
         
         self.AbsBest = tk.CTkLabel(window, text = str(self.firstline), text_font=("Arial", 18))
-        print(self.firstline)
         self.AbsBest.place(x=x, y=20)
         
         if self.Players == 1:
-            self.winWidth = 160
+            self.winWidth = 190
             window.geometry(str(self.winWidth) + 'x250')
         
         else:
-            self.winWidth = (self.Players * 300) - 140
+            self.winWidth = (self.Players * 300) - 110
             window.geometry(str(self.winWidth) + 'x250')
 
     def LeaderBoard(self):
@@ -338,11 +351,11 @@ class image():
                                         self.time[self.i-1] += int(self.string.split(' ')[4])
                                         self.best[self.i-1] = self.string.split(' ')[7].strip('\r\n')
                                         
-                                        if int(self.firstline) < int(self.best[self.i-1]):
+                                        if int(self.firstline) > int(self.best[self.i-1]):
                                             file = open("AbsBest.txt", 'w')
                                             file.write(str(self.best[self.i-1]))
                                             file.close()
-                                            self.AbsBest.config(text=str(self.best[self.i-1]))
+                                            self.AbsBest.configure(text=str(self.best[self.i-1]))
 
                                         y = self.yCoordinates[self.i-1] + 30
                                         self.lapsRem.place(x=65, y=y)
